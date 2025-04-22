@@ -1,0 +1,146 @@
+{
+    "version": 1.0,
+    "case": {
+        "mesh_file": "box.nmsh",
+
+        "start_time": 0,
+        "end_time": 15000,
+
+        "variable_timestep": true,  
+        "max_timestep": 2,
+        "target_cfl": 0.5,
+
+        "output_at_end": true,
+        "output_boundary": false,
+        "output_checkpoints": false,
+        "checkpoint_control": "simulationtime",
+        "checkpoint_value": 1000,
+        "output_directory": "/cfs/klemming/projects/supr/kthmech/ldl/neko_test_abl/NEKO_TEST_RESULTS/mixed_output",
+
+        "numerics": {
+            "time_order": 3,
+            "polynomial_order": 7,
+            "dealias": true
+        },
+
+        "fluid": {
+            "scheme": "pnpn",
+            "rho": 1,
+            "mu": 1,
+            "output_control": "simulationtime",
+            "output_value": 500,
+            "initial_condition": {
+                "type": "user"
+            },
+            "nut_field": "nut",
+            "velocity_solver": {
+                "type": "coupledcg",
+                "preconditioner": "jacobi",
+                "projection_space_size": 0,
+                "absolute_tolerance": 1e-7,
+                "max_iterations": 800
+            },
+            "pressure_solver": {
+                "type": "gmres",
+                "preconditioner": "hsmg",
+                "projection_space_size": 0,
+                "absolute_tolerance": 1e-5,
+                "max_iterations": 800
+            },
+            "source_terms": [
+                {
+                    "type": "boussinesq",
+                    "scalar_field": "s",
+                    "reference_value": 300,
+                    "g": [
+                        0,
+                        0, 
+                        9.81
+                    ]
+                },
+                {
+                    "type": "coriolis",
+                    "f": 1.03e-4, 
+                    "geostrophic_wind": [10, 0, 0]
+                }
+            ],
+            "boundary_conditions": [
+                {
+                    "type": "velocity_value",
+                    "value": [
+                        10,
+                        0,
+                        0
+                    ],
+                    "zone_indices": [
+                        6
+                    ]
+                },
+                {
+                    "type": "wall_model",
+                    "model": "rough_log_law",
+                    "kappa": 0.4,
+                    "z0": 0.1,
+                    "B": 0,
+                    "zone_indices": [
+                        5
+                    ],
+                    "h_index": 1
+                }
+            ]
+        },
+        "scalar": {
+            "enabled": true,
+            "cp": 1,
+            "lambda": 1e-10,
+            "initial_condition": {
+                "type": "user"
+            },
+            "boundary_conditions": [
+                {
+                    "type": "dirichlet",
+                    "value": 308.30999756,
+                    "zone_indices": [
+                        6
+                    ]
+                },
+                {
+                    "type": "neumann",
+                    "flux": 0.05,
+                    "zone_indices": [
+                        5
+                    ]
+                }
+            ],
+            "nut_field": "nut",
+            "Pr_t": 0.3,
+            "solver": {
+                "type": "cg",
+                "preconditioner": "jacobi",
+                "projection_space_size": 0,
+                "absolute_tolerance": 1e-7,
+                "max_iterations": 800
+            }
+        },
+        "simulation_components": [
+            {
+                "type": "les_model",
+                "model": "vreman",
+                "output_filename": "les",
+                "output_control": "simulationtime",
+                "output_value": 500,
+                "nut_field": "nut"
+            },
+            {
+                "type": "fluid_stats",
+                "compute_control": "tsteps",
+                "compute_value": 10,
+                "output_control": "tsteps",
+                "output_value": 300,
+                "start_time": 12000.0,
+                "avg_direction": "xy",
+                "set_of_stats": "basic"
+            }
+        ]
+    }
+}

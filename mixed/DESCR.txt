@@ -1,0 +1,13 @@
+MIXED CASE
+
+Ug          =  10 
+
+q_in        =  0.05
+
+Wall model  =  roughlog (no MOST)
+
+SGS model   =  Vreman (no buoyancy corr.)
+
+Sponge      =  no
+
+Coriolis    =  set with f=1e-4

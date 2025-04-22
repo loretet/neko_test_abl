@@ -11,3 +11,5 @@ SGS model   =  Vreman (no buoyancy corr.)
 Sponge      =  no
 
 Coriolis    =  set with f=1e-4
+
+Neko ver.   =  fec36b91cc54a425e4e959383b8eba09c2e84be8 cloned from https://github.com/loretet/neko.git

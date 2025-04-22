@@ -1,0 +1,13 @@
+CASE NAME
+
+Ug          =  <geostrophic wind speed> 
+
+q_in        =  <heat influx from bottom boundary>
+
+Wall model  =  <wall model used>
+
+SGS model   =  <SGS model used>
+
+Sponge      =  <with or without sponge>
+
+Coriolis    =  <method to set up Coriolis>

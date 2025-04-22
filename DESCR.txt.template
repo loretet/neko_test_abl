@@ -11,3 +11,5 @@ SGS model   =  <SGS model used>
 Sponge      =  <with or without sponge>
 
 Coriolis    =  <method to set up Coriolis>
+
+Neko ver.   =  <Neko version/commit used to check the case>
